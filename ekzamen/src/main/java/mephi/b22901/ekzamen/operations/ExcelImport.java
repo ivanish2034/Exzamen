@@ -17,6 +17,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import mephi.b22901.ekzamen.*;
 import static mephi.b22901.ekzamen.operations.ImportTask.importTask;
 import static mephi.b22901.ekzamen.operations.ImportCondition.getCondition;
@@ -33,7 +34,15 @@ public class ExcelImport  {
             for (int j = 1; j<=sheet.getLastRowNum(); j++){
                 Student student = new Student();
                 XSSFRow row = sheet.getRow(j);
-                student.setVariant((int) row.getCell(0).getNumericCellValue());
+                Random rand = new Random();
+                int variant;
+                int studentNum = (int) row.getCell(0).getNumericCellValue();
+                if (studentNum % 2 == 0) {
+                    variant = (rand.nextDouble() < 0.8) ? 1 : 2;
+                } else {
+                    variant = (rand.nextDouble() < 0.8) ? 2 : 1;
+                }
+                student.setVariant(variant);
                 student.setFIO(row.getCell(1).getStringCellValue());
                 students.add(student);
             }

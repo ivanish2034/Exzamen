@@ -11,6 +11,7 @@ package mephi.b22901.ekzamen;
 public class Ekzamen {
 
     public static void main(String[] args) {
-        System.out.println("Hello Ekzamen!");
+        MainGUI app = new MainGUI();
+        app.setVisible(true);
     }
 }
