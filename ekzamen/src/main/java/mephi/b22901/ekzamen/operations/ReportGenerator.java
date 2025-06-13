@@ -29,20 +29,18 @@ public class ReportGenerator {
         EXCEL
     }
 
-    private static final int PASSING_GRADE = 15; 
-
-    public static void generateGroupReport(Group group, File file, Format format) throws IOException {
+    public static void generateGroupReport(Group group, File file, Format format, int passingGrade) throws IOException {
         if (format == Format.TXT) {
-            writeGroupTxtReport(group, file);
+            writeGroupTxtReport(group, file, passingGrade);
         } else {
-            writeGroupExcelReport(group, file);
+            writeGroupExcelReport(group, file, passingGrade);
         }
     }
 
-    private static void writeGroupTxtReport(Group group, File file) throws IOException {
+    private static void writeGroupTxtReport(Group group, File file, int passingGrade) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
             writer.println("Отчет по группе: " + group.getName());
-            writer.println("Минимальный балл для зачёта: " + PASSING_GRADE);
+            writer.println("Минимальный балл для зачёта: " + passingGrade);
             writer.println();
             
             for (Student student : group.getStudents()) {
@@ -61,24 +59,20 @@ public class ReportGenerator {
                         total += tr.getGrade();
                     }
                     writer.println("  Сумма баллов: " + total);
-                    if (total >= PASSING_GRADE) {
-                        writer.println("  Итог: Зачёт");
-                    } else {
-                        writer.println("  Итог: Незачёт");
-                    }
+                    writer.println("  Итог: " + (total >= passingGrade ? "Зачёт" : "Незачёт"));
                 }
                 writer.println();
             }
         }
     }
-    
-    private static void writeGroupExcelReport(Group group, File file) throws IOException {
+
+    private static void writeGroupExcelReport(Group group, File file, int passingGrade) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Группа " + group.getName());
             int rowNum = 0;
 
             Row infoRow = sheet.createRow(rowNum++);
-            infoRow.createCell(0).setCellValue("Минимальный балл для зачёта: " + PASSING_GRADE);
+            infoRow.createCell(0).setCellValue("Минимальный балл для зачёта: " + passingGrade);
 
             sheet.createRow(rowNum++);
 
@@ -106,15 +100,10 @@ public class ReportGenerator {
                     
                     row.createCell(2).setCellValue("Оценено");
                     row.createCell(3).setCellValue(total);
-                    String result;
-                    if (total >= PASSING_GRADE) {
-                        result = "Зачёт";
-                    } else {
-                        result = "Незачёт";
-                    }
-                    row.createCell(4).setCellValue(result);
+                    row.createCell(4).setCellValue(total >= passingGrade ? "Зачёт" : "Незачёт");
                 }
             }
+
             for (int i = 0; i < 5; i++) {
                 sheet.autoSizeColumn(i);
             }

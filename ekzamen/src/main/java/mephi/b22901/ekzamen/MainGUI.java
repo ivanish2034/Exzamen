@@ -384,9 +384,32 @@ public class MainGUI extends javax.swing.JFrame {
 
         String fileName = "Отчет_группы_" + chosenGroup.getName() + end;
         File reportFile = new File(selectedFolder, fileName);
+        
+        int passingGrade;
+        try {
+            passingGrade = Integer.parseInt(JOptionPane.showInputDialog(
+                MainGUI.this, 
+                "Введите минимальный проходной балл:",
+                "15" 
+            ));
+            if (passingGrade < 0) {
+                JOptionPane.showMessageDialog(MainGUI.this, 
+                    "Балл не может быть отрицательным",
+                    "Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(MainGUI.this, 
+                "Необходимо ввести целое число",
+                "Ошибка",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         try {
-            ReportGenerator.generateGroupReport(chosenGroup, reportFile, format);
+            ReportGenerator.generateGroupReport(chosenGroup, reportFile, format, passingGrade);
             JOptionPane.showMessageDialog(MainGUI.this, 
                 "Отчет успешно сохранен в:\n" + reportFile.getAbsolutePath());
         } catch (IOException ex) {
