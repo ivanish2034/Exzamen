@@ -10,4 +10,16 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>mephi.b22901.ekzamen.Ekzamen</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+    </dependencies>
 </project>
