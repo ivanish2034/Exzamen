@@ -35,14 +35,7 @@ public class ExcelImport  {
                 Student student = new Student();
                 XSSFRow row = sheet.getRow(j);
                 Random rand = new Random();
-                int variant;
-                int studentNum = (int) row.getCell(0).getNumericCellValue();
-                if (studentNum % 2 == 0) {
-                    variant = (rand.nextDouble() < 0.8) ? 1 : 2;
-                } else {
-                    variant = (rand.nextDouble() < 0.8) ? 2 : 1;
-                }
-                student.setVariant(variant);
+                student.setVariant((int) row.getCell(2).getNumericCellValue());
                 student.setFIO(row.getCell(1).getStringCellValue());
                 students.add(student);
             }

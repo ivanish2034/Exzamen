@@ -223,6 +223,19 @@ public class MainGUI extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Students.xlsx", "xlsx");
         jFileChooser.setFileFilter(filter);
 
+        try {
+            File jarDir = new File(MainGUI.class
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .toURI())
+                .getParentFile();
+
+            jFileChooser.setCurrentDirectory(jarDir);
+        } catch (Exception e) {
+            jFileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        }
+        
         int result = jFileChooser.showDialog(null, "Выбрать файл:");
         if (result != JFileChooser.APPROVE_OPTION) {
             JOptionPane.showMessageDialog(MainGUI.this, "Файл не выбран");
@@ -252,10 +265,26 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void importVarintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importVarintButtonActionPerformed
         try {
+            try {
+                File jarDir = new File(MainGUI.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .toURI())
+                    .getParentFile();
+
+                jFolderChooser.setCurrentDirectory(jarDir);
+            } catch (Exception e) {
+                jFolderChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            }
             jFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jFolderChooser.showDialog(null, "Выбрать папку:");
             varFolder = jFolderChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(MainGUI.this, "Выбрана папка " + varFolder.getName());
+            if (varFolder != null) {
+                JOptionPane.showMessageDialog(MainGUI.this, "Выбрана папка " + varFolder.getName());
+            } else {
+                JOptionPane.showMessageDialog(MainGUI.this, "Папка не выбрана");
+            }
         } catch (IllegalArgumentException | NullPointerException exception) {
             JOptionPane.showMessageDialog(MainGUI.this, "Папка не выбрана");
         }

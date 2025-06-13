@@ -36,6 +36,8 @@ public class StudentTaskRate extends javax.swing.JFrame {
         variantLabel.setText(student.getVariant() + " вариант");
         updateTasksList();
         this.mainGui = mainGui;
+        mainGui.setEnabled(false);
+        rateButton.setEnabled(false);
     }
 
     /**
@@ -51,7 +53,6 @@ public class StudentTaskRate extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taskList = new javax.swing.JList();
-        showTaskButton = new javax.swing.JButton();
         endRateButton = new javax.swing.JButton();
         studentLabel = new javax.swing.JLabel();
         fioLabel = new javax.swing.JLabel();
@@ -80,13 +81,6 @@ public class StudentTaskRate extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(taskList);
-
-        showTaskButton.setText("Показать условие");
-        showTaskButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showTaskButtonActionPerformed(evt);
-            }
-        });
 
         endRateButton.setText("Закончить выставление оценок");
         endRateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +112,7 @@ public class StudentTaskRate extends javax.swing.JFrame {
             }
         });
 
-        rateButton.setText("Rate task");
+        rateButton.setText("Выставление оценки");
         rateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rateButtonActionPerformed(evt);
@@ -143,29 +137,30 @@ public class StudentTaskRate extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                .addGap(103, 103, 103)
-                                .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(studentRatePanelLayout.createSequentialGroup()
                                 .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                        .addComponent(maxGradeLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(gradeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                        .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(showTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(endRateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(taskDescriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(variantInfoLabel)
                                             .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(rateButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                                .addComponent(rateButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(rateInfoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(rateTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addComponent(variantLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 34, Short.MAX_VALUE)))))
+                                            .addComponent(variantLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                        .addComponent(maxGradeLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(gradeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                .addComponent(taskDescriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                        .addComponent(endRateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         studentRatePanelLayout.setVerticalGroup(
@@ -189,19 +184,17 @@ public class StudentTaskRate extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(rateButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showTaskButton)
-                .addGap(18, 18, 18)
-                .addComponent(endRateButton)
                 .addGap(18, 18, 18)
                 .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(descriptionLabel)
-                    .addComponent(taskDescriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(taskDescriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(descriptionLabel))
+                .addGap(18, 18, 18)
                 .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(maxGradeLabel)
                     .addComponent(gradeLabel))
-                .addGap(27, 27, 27))
+                .addGap(13, 13, 13)
+                .addComponent(endRateButton)
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,17 +217,20 @@ public class StudentTaskRate extends javax.swing.JFrame {
         try {
             int selectedIndex = taskList.getSelectedIndex(); 
             if (selectedIndex == -1) {
-                JOptionPane.showMessageDialog(this, "Пожалуйста, выберите задание в списке!");
+                JOptionPane.showMessageDialog(this, "Пожалуйста, выберите задание в списке!","Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
             int grade = Integer.parseInt(rateTextField.getText());
 
             if (grade < 0) {
-                JOptionPane.showMessageDialog(this, "Оценка не может быть отрицательной!");
+                JOptionPane.showMessageDialog(this, "Оценка не может быть отрицательной!","Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (grade > tasks.get(selectedIndex).getMaxGrade()) {
-                JOptionPane.showMessageDialog(this, "Оценка превышает максимальный балл");
+                JOptionPane.showMessageDialog(this, "Оценка превышает максимальный балл","Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -242,10 +238,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
             taskReport.setGrade(grade);
             tasks.get(selectedIndex).setReport(taskReport);
             updateTasksList();
-
+            rateButton.setEnabled(false);
         } catch (NumberFormatException exception) {
-            JOptionPane.showMessageDialog(this, "Необходимо ввести целое число");
-        }
+            JOptionPane.showMessageDialog(this, "Необходимо ввести целое число","Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
+        }  
     }//GEN-LAST:event_rateButtonActionPerformed
 
     private void rateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateTextFieldActionPerformed
@@ -254,7 +251,8 @@ public class StudentTaskRate extends javax.swing.JFrame {
 
     private void endRateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endRateButtonActionPerformed
         if (tasks.stream().filter(task -> task.getReport() == null).findFirst().orElse(null) != null) {
-            JOptionPane.showMessageDialog(StudentTaskRate.this, "Не все задания оценены");
+            JOptionPane.showMessageDialog(StudentTaskRate.this, "Не все задания оценены","Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             report.setTasks(tasks);
             mainGui.setEnabled(true);
@@ -262,50 +260,48 @@ public class StudentTaskRate extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_endRateButtonActionPerformed
 
-    private void showTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTaskButtonActionPerformed
-        rateTextField.setText("");
-        rateTextField.setEnabled(true);
-        rateButton.setEnabled(true);
-        int selectedIndex = taskList.getSelectedIndex(); 
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Выберите задание в списке!");
-            return;
-        }
-        Task task = tasks.get(selectedIndex);
-        
-        if (task.getCondition().length() > 125) {
-            descriptionLabel.setText(task.getCondition().substring(0, 125) + "-");
-        } else {
-            descriptionLabel.setText(task.getCondition());
-        }
-        if (task.getMaxGrade() > 4) {
-            gradeLabel.setText(task.getMaxGrade() + " баллов");
-        } else gradeLabel.setText(task.getMaxGrade() + " балла");
-        
-        if (tasks.get(taskList.getSelectedIndex()).getReport() != null) {
-            rateTextField.setText(tasks.get(taskList.getSelectedIndex()).getReport().getGrade() + "");
-        }
-    }//GEN-LAST:event_showTaskButtonActionPerformed
-
     private void taskListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_taskListValueChanged
-        showTaskButton.setEnabled(true);
+        if (!evt.getValueIsAdjusting()) { 
+            int selectedIndex = taskList.getSelectedIndex();
+            rateTextField.setText("");
+            rateTextField.setEnabled(true);
+            rateButton.setEnabled(true);
+
+            Task task = tasks.get(selectedIndex);
+
+            if (task.getCondition().length() > 125) {
+                descriptionLabel.setText(task.getCondition().substring(0, 125) + "-");
+            } else {
+                descriptionLabel.setText(task.getCondition());
+            }
+            if (task.getMaxGrade() > 4) {
+                gradeLabel.setText(task.getMaxGrade() + " баллов");
+            } else {
+                gradeLabel.setText(task.getMaxGrade() + " балла");
+            }
+
+            if (task.getReport() != null) {
+                rateTextField.setText(task.getReport().getGrade() + "");
+            }
+        }
     }//GEN-LAST:event_taskListValueChanged
 
     /**
      * @param args the command line arguments
      */
-    public void updateTasksList() {
+    private void updateTasksList() {
         DefaultListModel<Task> listModel = new DefaultListModel<>();
         for (Task task : tasks) {
             listModel.addElement(task);
         }
+        taskList.removeListSelectionListener(taskList.getListSelectionListeners()[0]);
         taskList.setModel(listModel);
+        taskList.addListSelectionListener(this::taskListValueChanged);
     }
-    
     public StudentResult getReport() {
         return report;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JButton endRateButton;
@@ -317,7 +313,6 @@ public class StudentTaskRate extends javax.swing.JFrame {
     private javax.swing.JButton rateButton;
     private javax.swing.JLabel rateInfoLabel;
     private javax.swing.JTextField rateTextField;
-    private javax.swing.JButton showTaskButton;
     private javax.swing.JLabel studentLabel;
     private javax.swing.JPanel studentRatePanel;
     private javax.swing.JLabel taskDescriptionLabel;

@@ -53,37 +53,39 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                                  <Component id="descriptionLabel" max="32767" attributes="0"/>
-                              </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="maxGradeLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="gradeLabel" min="-2" pref="167" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="showTaskButton" min="-2" pref="216" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane2" min="-2" pref="411" max="-2" attributes="0"/>
-                                              <Component id="endRateButton" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
-                                              <Component id="taskDescriptionLabel" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jScrollPane2" min="-2" pref="411" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="variantInfoLabel" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="rateButton" alignment="0" pref="90" max="32767" attributes="0"/>
+                                                  <Component id="rateButton" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="rateInfoLabel" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="rateTextField" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <Component id="variantLabel" min="-2" pref="89" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="maxGradeLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="gradeLabel" min="-2" pref="167" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="taskDescriptionLabel" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="endRateButton" min="-2" pref="255" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="descriptionLabel" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -116,21 +118,19 @@
                       </Group>
                       <Component id="jScrollPane2" min="-2" pref="176" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="showTaskButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="endRateButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="descriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="taskDescriptionLabel" alignment="3" max="32767" attributes="0"/>
+                      <Component id="descriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="maxGradeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="gradeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <Component id="endRateButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,14 +163,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="showTaskButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x43a;&#x430;&#x437;&#x430;&#x442;&#x44c; &#x443;&#x441;&#x43b;&#x43e;&#x432;&#x438;&#x435;"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showTaskButtonActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="endRateButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43a;&#x43e;&#x43d;&#x447;&#x438;&#x442;&#x44c; &#x432;&#x44b;&#x441;&#x442;&#x430;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x435; &#x43e;&#x446;&#x435;&#x43d;&#x43e;&#x43a;"/>
@@ -229,7 +221,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="rateButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Rate task"/>
+            <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x441;&#x442;&#x430;&#x432;&#x43b;&#x435;&#x43d;&#x438;&#x435; &#x43e;&#x446;&#x435;&#x43d;&#x43a;&#x438;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateButtonActionPerformed"/>
