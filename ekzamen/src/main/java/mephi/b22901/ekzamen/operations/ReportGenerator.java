@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import mephi.b22901.ekzamen.Group;
 import mephi.b22901.ekzamen.Student;
 import mephi.b22901.ekzamen.Task;
@@ -71,17 +72,27 @@ public class ReportGenerator {
             Sheet sheet = workbook.createSheet("Группа " + group.getName());
             int rowNum = 0;
 
+            int maxTasks = group.getStudents().stream()
+                .filter(s -> s.getReport() != null && !s.getReport().isHasNoWork())
+                .mapToInt(s -> s.getReport().getTasks().size())
+                .max()
+                .orElse(0);
+
             Row infoRow = sheet.createRow(rowNum++);
             infoRow.createCell(0).setCellValue("Минимальный балл для зачёта: " + passingGrade);
 
-            sheet.createRow(rowNum++);
+            rowNum++;
 
             Row header = sheet.createRow(rowNum++);
             header.createCell(0).setCellValue("ФИО");
             header.createCell(1).setCellValue("Вариант");
-            header.createCell(2).setCellValue("Статус");
-            header.createCell(3).setCellValue("Сумма баллов");
-            header.createCell(4).setCellValue("Итог");
+
+            for (int i = 0; i < maxTasks; i++) {
+                header.createCell(i + 2).setCellValue("Задание " + (i + 1));
+            }
+
+            header.createCell(maxTasks + 2).setCellValue("Сумма баллов");
+            header.createCell(maxTasks + 3).setCellValue("Итог");
 
             for (Student student : group.getStudents()) {
                 Row row = sheet.createRow(rowNum++);
@@ -89,22 +100,31 @@ public class ReportGenerator {
                 row.createCell(1).setCellValue(student.getVariant());
 
                 if (student.getReport() == null || student.getReport().isHasNoWork()) {
-                    row.createCell(2).setCellValue("Нет работы");
-                    row.createCell(3).setCellValue(0);
-                    row.createCell(4).setCellValue("Незачёт");
+                    for (int i = 0; i < maxTasks; i++) {
+                        row.createCell(i + 2).setCellValue("Н/Р");
+                    }
+                    row.createCell(maxTasks + 2).setCellValue(0);
+                    row.createCell(maxTasks + 3).setCellValue("Незачёт");
                 } else {
                     int total = 0;
-                    for (Task task : student.getReport().getTasks()) {
-                        total += task.getReport().getGrade();
+                    List<Task> tasks = student.getReport().getTasks();
+
+                    for (int i = 0; i < maxTasks; i++) {
+                        if (i < tasks.size()) {
+                            int grade = tasks.get(i).getReport().getGrade();
+                            row.createCell(i + 2).setCellValue(grade);
+                            total += grade;
+                        } else {
+                            row.createCell(i + 2).setCellValue("-");
+                        }
                     }
-                    
-                    row.createCell(2).setCellValue("Оценено");
-                    row.createCell(3).setCellValue(total);
-                    row.createCell(4).setCellValue(total >= passingGrade ? "Зачёт" : "Незачёт");
+
+                    row.createCell(maxTasks + 2).setCellValue(total);
+                    row.createCell(maxTasks + 3).setCellValue(total >= passingGrade ? "Зачёт" : "Незачёт");
                 }
             }
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < maxTasks + 4; i++) {
                 sheet.autoSizeColumn(i);
             }
 
