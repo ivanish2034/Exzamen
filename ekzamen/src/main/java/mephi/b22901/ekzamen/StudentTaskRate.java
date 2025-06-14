@@ -26,7 +26,7 @@ public class StudentTaskRate extends javax.swing.JFrame {
         setContentPane(studentRatePanel);
         setTitle("Задания варианта");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 400);
+        setSize(700, 600);
         setLocationRelativeTo(null);
         setVisible(true);
         if (student.getReport() != null) {
@@ -53,7 +53,6 @@ public class StudentTaskRate extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taskList = new javax.swing.JList();
-        endRateButton = new javax.swing.JButton();
         studentLabel = new javax.swing.JLabel();
         fioLabel = new javax.swing.JLabel();
         variantInfoLabel = new javax.swing.JLabel();
@@ -65,6 +64,13 @@ public class StudentTaskRate extends javax.swing.JFrame {
         rateTextField = new javax.swing.JTextField();
         rateButton = new javax.swing.JButton();
         rateInfoLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taskDescriptionTextArea = new javax.swing.JTextArea();
+        withoutCommentButton = new javax.swing.JButton();
+        notCompletedTaskButton = new javax.swing.JButton();
+        correctTaskButton = new javax.swing.JButton();
+        endRateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,13 +88,6 @@ public class StudentTaskRate extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(taskList);
 
-        endRateButton.setText("Закончить выставление оценок");
-        endRateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endRateButtonActionPerformed(evt);
-            }
-        });
-
         studentLabel.setText("Студент:");
 
         fioLabel.setText(" ");
@@ -97,11 +96,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
 
         variantLabel.setText(" ");
 
-        taskDescriptionLabel.setText("Task description:");
+        taskDescriptionLabel.setText("Текст задания:");
 
         descriptionLabel.setText("  ");
 
-        maxGradeLabel.setText("Max Rate:");
+        maxGradeLabel.setText("Максимальная оценка:");
 
         gradeLabel.setText(" ");
 
@@ -121,6 +120,40 @@ public class StudentTaskRate extends javax.swing.JFrame {
 
         rateInfoLabel.setText("Оценка:");
 
+        jLabel2.setText("Комментарий к заданию:");
+
+        taskDescriptionTextArea.setColumns(20);
+        taskDescriptionTextArea.setRows(5);
+        jScrollPane1.setViewportView(taskDescriptionTextArea);
+
+        withoutCommentButton.setText("Без комментария");
+        withoutCommentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                withoutCommentButtonActionPerformed(evt);
+            }
+        });
+
+        notCompletedTaskButton.setText("Задание не выполнено");
+        notCompletedTaskButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notCompletedTaskButtonActionPerformed(evt);
+            }
+        });
+
+        correctTaskButton.setText("Задание выполнено корректно");
+        correctTaskButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correctTaskButtonActionPerformed(evt);
+            }
+        });
+
+        endRateButton.setText("Закончить выставление оценок");
+        endRateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endRateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout studentRatePanelLayout = new javax.swing.GroupLayout(studentRatePanel);
         studentRatePanel.setLayout(studentRatePanelLayout);
         studentRatePanelLayout.setHorizontalGroup(
@@ -137,30 +170,40 @@ public class StudentTaskRate extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(variantInfoLabel)
-                                            .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(rateButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(rateInfoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(rateTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addComponent(variantLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                        .addComponent(maxGradeLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(gradeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(studentRatePanelLayout.createSequentialGroup()
                                 .addComponent(taskDescriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(studentRatePanelLayout.createSequentialGroup()
                                 .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(variantInfoLabel)
+                                                .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(rateButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(rateInfoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(rateTextField, javax.swing.GroupLayout.Alignment.LEADING))
+                                                .addComponent(variantLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                            .addComponent(maxGradeLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(gradeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jScrollPane1)))
                                     .addGroup(studentRatePanelLayout.createSequentialGroup()
-                                        .addComponent(endRateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(withoutCommentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(endRateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(studentRatePanelLayout.createSequentialGroup()
+                                                .addComponent(notCompletedTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(correctTaskButton)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         studentRatePanelLayout.setVerticalGroup(
@@ -192,9 +235,18 @@ public class StudentTaskRate extends javax.swing.JFrame {
                 .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(maxGradeLabel)
                     .addComponent(gradeLabel))
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
+                .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(studentRatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(withoutCommentButton)
+                    .addComponent(correctTaskButton)
+                    .addComponent(notCompletedTaskButton))
+                .addGap(18, 18, 18)
                 .addComponent(endRateButton)
-                .addGap(49, 49, 49))
+                .addGap(9, 9, 9))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,7 +259,9 @@ public class StudentTaskRate extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(studentRatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(studentRatePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -234,11 +288,18 @@ public class StudentTaskRate extends javax.swing.JFrame {
                 return;
             }
 
-            TaskRecord taskReport = new TaskRecord();
+            Task task = tasks.get(selectedIndex);
+            TaskRecord taskReport = task.getReport() != null ? task.getReport() : new TaskRecord();
             taskReport.setGrade(grade);
-            tasks.get(selectedIndex).setReport(taskReport);
+            if (!taskDescriptionTextArea.getText().trim().isEmpty()) {
+                taskReport.setComment(taskDescriptionTextArea.getText().trim());
+            }
+
+            task.setReport(taskReport);
             updateTasksList();
             rateButton.setEnabled(false);
+
+            setCommentButtonsEnabled(true);
         } catch (NumberFormatException exception) {
             JOptionPane.showMessageDialog(this, "Необходимо ввести целое число","Ошибка",
                     JOptionPane.ERROR_MESSAGE);
@@ -261,30 +322,130 @@ public class StudentTaskRate extends javax.swing.JFrame {
     }//GEN-LAST:event_endRateButtonActionPerformed
 
     private void taskListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_taskListValueChanged
-        if (!evt.getValueIsAdjusting()) { 
+        if (!evt.getValueIsAdjusting()) {
             int selectedIndex = taskList.getSelectedIndex();
+            if (selectedIndex == -1) return;
+
+            Task task = tasks.get(selectedIndex);
+
             rateTextField.setText("");
             rateTextField.setEnabled(true);
             rateButton.setEnabled(true);
 
-            Task task = tasks.get(selectedIndex);
-
-            if (task.getCondition().length() > 125) {
-                descriptionLabel.setText(task.getCondition().substring(0, 125) + "-");
-            } else {
-                descriptionLabel.setText(task.getCondition());
-            }
-            if (task.getMaxGrade() > 4) {
-                gradeLabel.setText(task.getMaxGrade() + " баллов");
-            } else {
-                gradeLabel.setText(task.getMaxGrade() + " балла");
+            if (task.getReport() != null && task.getReport().getGrade() >= 0) {
+                rateTextField.setText(String.valueOf(task.getReport().getGrade()));
+                rateButton.setEnabled(false);
             }
 
-            if (task.getReport() != null) {
-                rateTextField.setText(task.getReport().getGrade() + "");
-            }
+            taskDescriptionTextArea.setText(
+                task.getReport() != null && task.getReport().getComment() != null 
+                    ? task.getReport().getComment() 
+                    : ""
+            );
+
+            descriptionLabel.setText(
+                task.getCondition().length() > 125 
+                    ? task.getCondition().substring(0, 125) + "-" 
+                    : task.getCondition()
+            );
+
+            gradeLabel.setText(task.getMaxGrade() + (task.getMaxGrade() > 4 ? " баллов" : " балла"));
         }
     }//GEN-LAST:event_taskListValueChanged
+
+    private void withoutCommentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withoutCommentButtonActionPerformed
+        int selectedIndex = taskList.getSelectedIndex();
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Выберите задание!", "Ошибка", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Task task = tasks.get(selectedIndex);
+        if (task.getReport() == null) {
+            task.setReport(new TaskRecord());
+        }
+
+        task.getReport().setComment(null);
+        taskDescriptionTextArea.setText("");
+
+        rateButton.setEnabled(true);
+        JOptionPane.showMessageDialog(this, "Комментарий удален", "Информация", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_withoutCommentButtonActionPerformed
+
+    private void notCompletedTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notCompletedTaskButtonActionPerformed
+        int selectedIndex = taskList.getSelectedIndex(); 
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Выберите задание!", "Ошибка", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Task task = tasks.get(selectedIndex);
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Вы уверены, что хотите поставить 0 баллов за это задание?\n(Это перезапишет текущую оценку)",
+            "Подтверждение",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            TaskRecord report = task.getReport() != null ? task.getReport() : new TaskRecord();
+
+            report.setGrade(0);
+            report.setComment("Задание не выполнено");
+            task.setReport(report);
+
+            rateTextField.setText("0");
+            taskDescriptionTextArea.setText("Задание не выполнено");
+            rateButton.setEnabled(false); 
+
+            updateTasksList();
+
+            JOptionPane.showMessageDialog(this, 
+                "Заданию установлено 0 баллов", 
+                "Информация", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_notCompletedTaskButtonActionPerformed
+
+    private void correctTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correctTaskButtonActionPerformed
+        int selectedIndex = taskList.getSelectedIndex();
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Выберите задание!", "Ошибка", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Task task = tasks.get(selectedIndex);
+        int maxGrade = task.getMaxGrade();
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Поставить максимальный балл (" + maxGrade + ") за это задание?",
+            "Подтверждение",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            TaskRecord taskReport = task.getReport() != null ? task.getReport() : new TaskRecord();
+
+            taskReport.setGrade(maxGrade);
+            String comment = "Задание выполнено корректно";
+            taskReport.setComment(comment);
+            task.setReport(taskReport);
+
+            rateTextField.setText(String.valueOf(maxGrade));
+            taskDescriptionTextArea.setText(comment);
+            updateTasksList();
+            rateButton.setEnabled(false);
+        } else {
+            String comment = "Задание выполнено корректно";
+            if (task.getReport() == null) {
+                task.setReport(new TaskRecord());
+            }
+            task.getReport().setComment(comment);
+            taskDescriptionTextArea.setText(comment);
+
+            setCommentButtonsEnabled(false);
+        }
+    }//GEN-LAST:event_correctTaskButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,23 +462,32 @@ public class StudentTaskRate extends javax.swing.JFrame {
     public StudentResult getReport() {
         return report;
     }
-    
+    private void setCommentButtonsEnabled(boolean enabled) {
+        correctTaskButton.setEnabled(enabled);
+        notCompletedTaskButton.setEnabled(enabled);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton correctTaskButton;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JButton endRateButton;
     private javax.swing.JLabel fioLabel;
     private javax.swing.JLabel gradeLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel maxGradeLabel;
+    private javax.swing.JButton notCompletedTaskButton;
     private javax.swing.JButton rateButton;
     private javax.swing.JLabel rateInfoLabel;
     private javax.swing.JTextField rateTextField;
     private javax.swing.JLabel studentLabel;
     private javax.swing.JPanel studentRatePanel;
     private javax.swing.JLabel taskDescriptionLabel;
+    private javax.swing.JTextArea taskDescriptionTextArea;
     private javax.swing.JList taskList;
     private javax.swing.JLabel variantInfoLabel;
     private javax.swing.JLabel variantLabel;
+    private javax.swing.JButton withoutCommentButton;
     // End of variables declaration//GEN-END:variables
 }

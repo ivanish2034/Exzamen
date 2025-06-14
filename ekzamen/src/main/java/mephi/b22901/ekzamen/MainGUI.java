@@ -7,6 +7,7 @@ package mephi.b22901.ekzamen;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -16,6 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.openxml4j.exceptions.InvalidOperationException;
 import mephi.b22901.ekzamen.operations.ExcelImport;
 import mephi.b22901.ekzamen.operations.ReportGenerator;
+import mephi.b22901.ekzamen.operations.ReportGenerator.Format;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
@@ -46,6 +48,8 @@ public class MainGUI extends javax.swing.JFrame {
         openVarButton.setEnabled(false);
         importVarintButton.setEnabled(false);
         chooserGroupComboBox.setEnabled(false);
+        createPersonReportButton.setEnabled(false);
+        createAllReportButton.setEnabled(false);
     }
     private final JFileChooser jFileChooser = new JFileChooser();
     private final JFileChooser jFolderChooser = new JFileChooser();
@@ -72,6 +76,8 @@ public class MainGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         studentInfoList = new javax.swing.JList();
         createGroupReportButton = new javax.swing.JButton();
+        createPersonReportButton = new javax.swing.JButton();
+        createAllReportButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +150,20 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        createPersonReportButton.setText("Отчёт по человеку");
+        createPersonReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPersonReportButtonActionPerformed(evt);
+            }
+        });
+
+        createAllReportButton.setText("Отчёт по потоку");
+        createAllReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createAllReportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -170,7 +190,10 @@ public class MainGUI extends javax.swing.JFrame {
                             .addComponent(noWorkButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(deleteRateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(createGroupReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createGroupReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createPersonReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createAllReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
@@ -192,15 +215,17 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(thirdStepLabel)
                     .addComponent(chooserGroupComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteRateButton))
+                .addGap(29, 29, 29)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addComponent(createGroupReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108))))
+                        .addComponent(createGroupReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(createPersonReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(createAllReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 7, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,6 +317,8 @@ public class MainGUI extends javax.swing.JFrame {
         noWorkButton.setEnabled(true);
         openVarButton.setEnabled(true);
         chooserGroupComboBox.setEnabled(true);
+        createPersonReportButton.setEnabled(true);
+        createAllReportButton.setEnabled(true);
     }//GEN-LAST:event_importVarintButtonActionPerformed
 
     private void chooserGroupComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooserGroupComboBoxActionPerformed
@@ -333,90 +360,26 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_openVarButtonActionPerformed
 
     private void createGroupReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGroupReportButtonActionPerformed
-        if (chosenGroup.getStudents().stream().anyMatch(student -> student.getReport() == null)) {
-            JOptionPane.showMessageDialog(MainGUI.this, "Не все студенты оценены");
-            return;
-        }
-        Object[] formats = {"Excel (.xlsx)", "Текстовый файл (.txt)"};
-        int formatChoice = JOptionPane.showOptionDialog(
-            MainGUI.this,
-            "Выберите формат отчета",
-            "Формат отчета",
-            JOptionPane.DEFAULT_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            formats,
-            formats[0]
-        );
-
-        if (formatChoice == JOptionPane.CLOSED_OPTION) {
+         if (chosenGroup.getStudents().stream().anyMatch(student -> student.getReport() == null)) {
+            JOptionPane.showMessageDialog(this, "Не все студенты оценены");
             return;
         }
 
-        ReportGenerator.Format format;
-        if (formatChoice == 0) {
-            format = ReportGenerator.Format.EXCEL;
-        } else {
-            format = ReportGenerator.Format.TXT;
-        }
-        String end;
-        if (format == ReportGenerator.Format.EXCEL) {
-            end = ".xlsx";
-        } else {
-            end = ".txt";
-        }
+        int passingGrade = getPassingGradeFromUser();
+        if (passingGrade < 0) return;
 
-        File selectedFolder;
-        try {
-            jFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            jFolderChooser.setDialogTitle("Выберите папку для сохранения отчета");
+        Format format = showFormatDialog();
+        if (format == null) return;
 
-            if (jFolderChooser.showDialog(null, "Выбрать") != JFileChooser.APPROVE_OPTION) {
-                return;
-            }
-
-            selectedFolder = jFolderChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(MainGUI.this, "Выбрана папка: " + selectedFolder.getName());
-        } catch (IllegalArgumentException | NullPointerException exception) {
-            JOptionPane.showMessageDialog(MainGUI.this, "Папка не выбрана");
-            return;
-        }
-
-        String fileName = "Отчет_группы_" + chosenGroup.getName() + end;
-        File reportFile = new File(selectedFolder, fileName);
-        
-        int passingGrade;
-        try {
-            passingGrade = Integer.parseInt(JOptionPane.showInputDialog(
-                MainGUI.this, 
-                "Введите минимальный проходной балл:",
-                "15" 
-            ));
-            if (passingGrade < 0) {
-                JOptionPane.showMessageDialog(MainGUI.this, 
-                    "Балл не может быть отрицательным",
-                    "Ошибка",
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(MainGUI.this, 
-                "Необходимо ввести целое число",
-                "Ошибка",
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        File file = chooseSaveLocation("Отчет_группы_" + chosenGroup.getName(), format);
+        if (file == null) return;
 
         try {
-            ReportGenerator.generateGroupReport(chosenGroup, reportFile, format, passingGrade);
-            JOptionPane.showMessageDialog(MainGUI.this, 
-                "Отчет успешно сохранен в:\n" + reportFile.getAbsolutePath());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(MainGUI.this, 
-                "Ошибка при создании отчета:\n" + ex.getMessage(),
-                "Ошибка", 
-                JOptionPane.ERROR_MESSAGE);
+            ReportGenerator.generateGroupReport(chosenGroup, file, format, passingGrade);
+            showSuccessMessage(file);
+        } catch (IOException e) {
+            showErrorMessage("Не удалось сохранить отчет:\n" + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_createGroupReportButtonActionPerformed
 
@@ -445,8 +408,70 @@ public class MainGUI extends javax.swing.JFrame {
             } catch (IndexOutOfBoundsException exception) {
                 System.out.println("Нет выбранного значения");
             }
-
     }//GEN-LAST:event_studentInfoListValueChanged
+
+    private void createPersonReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPersonReportButtonActionPerformed
+         Student student = (Student) studentInfoList.getSelectedValue();
+        if (student == null) {
+            JOptionPane.showMessageDialog(this, "Студент не выбран");
+            return;
+        }
+
+        if (student.getReport() == null) {
+            JOptionPane.showMessageDialog(this, "Работа студента не оценена");
+            return;
+        }
+
+        int passingGrade = getPassingGradeFromUser();
+        if (passingGrade < 0) return;
+
+        Format format = showFormatDialog();
+        if (format == null) return;
+
+        File file = chooseSaveLocation("Отчет_" + student.getFIO(), format);
+        if (file == null) return;
+
+        try {
+            ReportGenerator.generateStudentReport(student, chosenGroup, file, format, passingGrade);
+            showSuccessMessage(file);
+        } catch (IOException e) {
+            showErrorMessage("Не удалось сохранить отчет:\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_createPersonReportButtonActionPerformed
+
+    private void createAllReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAllReportButtonActionPerformed
+        for (Group group : groups) {
+            for (Student student : group.getStudents()) {
+                if (student.getReport() == null) {
+                    JOptionPane.showMessageDialog(this, "Не все студенты оценены");
+                    return;
+                }
+            }
+        }
+        int passingGrade = getPassingGradeFromUser();
+        if (passingGrade < 0) {
+            return;
+        }
+
+        ReportGenerator.Format format = showFormatDialog();
+        if (format == null) {
+            return;
+        }
+
+        File file = chooseSaveLocation("Сводный_отчет", format);
+        if (file == null) {
+            return; 
+        }
+
+        try {
+            ReportGenerator.generateAllGroupsReport(groups, file, format, passingGrade);
+            showSuccessMessage(file);
+        } catch (IOException e) {
+            showErrorMessage("Не удалось сохранить отчет:\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_createAllReportButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,10 +485,55 @@ public class MainGUI extends javax.swing.JFrame {
         studentInfoList.setSelectedIndex(0);
     }
 
+    private int getPassingGradeFromUser() {
+    try {
+            int grade = Integer.parseInt(JOptionPane.showInputDialog(
+                this, "Введите минимальный проходной балл:", "15"));
+            if (grade < 0) {
+                JOptionPane.showMessageDialog(this, "Балл не может быть отрицательным");
+                return -1;
+            }
+            return grade;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Необходимо ввести целое число");
+            return -1;
+        }
+    }
 
+    private Format showFormatDialog() {
+        Object[] options = {"Excel (.xlsx)", "Текстовый файл (.txt)"};
+        int choice = JOptionPane.showOptionDialog(
+            this, "Выберите формат отчета", "Формат отчета",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+            null, options, options[0]);
+
+        if (choice == 0) return Format.EXCEL;
+        if (choice == 1) return Format.TXT;
+        return null;
+    }
+
+    private File chooseSaveLocation(String baseName, Format format) {
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (jFileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
+        String extension = format == Format.EXCEL ? ".xlsx" : ".txt";
+        return new File(jFileChooser.getSelectedFile(), baseName + extension);
+    }
+
+    private void showSuccessMessage(File file) {
+        JOptionPane.showMessageDialog(this, 
+            "Отчет успешно сохранен:\n" + file.getAbsolutePath());
+    }
+
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Ошибка", JOptionPane.ERROR_MESSAGE);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> chooserGroupComboBox;
+    private javax.swing.JButton createAllReportButton;
     private javax.swing.JButton createGroupReportButton;
+    private javax.swing.JButton createPersonReportButton;
     private javax.swing.JButton deleteRateButton;
     private javax.swing.JLabel firstStepLabel;
     private javax.swing.JButton importStidentsButton;
