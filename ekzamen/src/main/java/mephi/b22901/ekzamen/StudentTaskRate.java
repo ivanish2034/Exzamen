@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * Использует Swing-компоненты для взаимодействия с пользователем.
  * Отключает главное окно на время оценки.
  * 
- * @author ivis2
+ * @author Иван Исаев
  */
 public class StudentTaskRate extends javax.swing.JFrame {
     /**

@@ -23,7 +23,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
  * Графический интерфейс для импорта студентов и вариантов,
  * оценки работ студентов и генерации отчетов.
  * Использует Swing-компоненты для взаимодействия с пользователем.
- * @author ivis2
+ * @author Иван Исаев
  */
 public class MainGUI extends javax.swing.JFrame {
     private ArrayList<Group> groups;
