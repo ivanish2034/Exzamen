@@ -9,17 +9,41 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Графический интерфейс для оценки заданий выбранного варианта студента.
+ * Позволяет выставлять оценки, комментарии и фиксировать результат.
+ * Использует Swing-компоненты для взаимодействия с пользователем.
+ * Отключает главное окно на время оценки.
+ * 
  * @author ivis2
  */
 public class StudentTaskRate extends javax.swing.JFrame {
+    /**
+     * Итоговый результат студента с оцененными заданиями.
+     */
     private final StudentResult report = new StudentResult();
+    /**
+     * Список заданий выбранного варианта или сохраненного отчета студента.
+     */
     private ArrayList<Task> tasks;
+    /**
+     * Вариант заданий, выбранный для оценки.
+     */
     Variant variant;
+    /**
+     * Студент, чьи задания оцениваются.
+     */
     Student student;
+    /**
+     * Главное окно приложения, блокируется на время оценки.
+     */
     MainGUI mainGui;
     /**
-     * Creates new form StudentTaskRate
+     * Создает новое окно для оценки заданий студента,
+     * инициализирует все компоненты и загружает данные.
+     * 
+     * @param variant Вариант заданий.
+     * @param student Студент, чьи задания оцениваются.
+     * @param mainGui Главное окно приложения.
      */
     public StudentTaskRate(Variant variant, Student student, MainGUI mainGui) {
         initComponents();
@@ -266,7 +290,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Обрабатывает нажатие кнопки для сохранения оценки выбранного задания.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void rateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateButtonActionPerformed
         try {
             int selectedIndex = taskList.getSelectedIndex(); 
@@ -309,7 +337,12 @@ public class StudentTaskRate extends javax.swing.JFrame {
     private void rateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateTextFieldActionPerformed
 
     }//GEN-LAST:event_rateTextFieldActionPerformed
-
+    /**
+     * Завершает процесс оценки всех заданий студента.
+     * Проверяет, все ли задания оценены, и закрывает окно.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void endRateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endRateButtonActionPerformed
         if (tasks.stream().filter(task -> task.getReport() == null).findFirst().orElse(null) != null) {
             JOptionPane.showMessageDialog(StudentTaskRate.this, "Не все задания оценены","Ошибка",
@@ -320,7 +353,12 @@ public class StudentTaskRate extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_endRateButtonActionPerformed
-
+    /**
+     * Обрабатывает выбор задания из списка.
+     * Отображает подробности задания и текущую оценку.
+     *
+     * @param evt Событие выбора элемента списка.
+     */
     private void taskListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_taskListValueChanged
         if (!evt.getValueIsAdjusting()) {
             int selectedIndex = taskList.getSelectedIndex();
@@ -352,7 +390,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
             gradeLabel.setText(task.getMaxGrade() + (task.getMaxGrade() > 4 ? " баллов" : " балла"));
         }
     }//GEN-LAST:event_taskListValueChanged
-
+    /**
+     * Удаляет комментарий у выбранного задания.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void withoutCommentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withoutCommentButtonActionPerformed
         int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex == -1) {
@@ -370,7 +412,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
         rateButton.setEnabled(true);
         JOptionPane.showMessageDialog(this, "Комментарий удален", "Информация", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_withoutCommentButtonActionPerformed
-
+    /**
+     * Устанавливает для выбранного задания 0 баллов и комментарий о невыполнении.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void notCompletedTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notCompletedTaskButtonActionPerformed
         int selectedIndex = taskList.getSelectedIndex(); 
         if (selectedIndex == -1) {
@@ -406,7 +452,11 @@ public class StudentTaskRate extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_notCompletedTaskButtonActionPerformed
-
+    /**
+     * Выставляет максимальный балл и комментарий о корректном выполнении для выбранного задания.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void correctTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correctTaskButtonActionPerformed
         int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex == -1) {
@@ -448,7 +498,7 @@ public class StudentTaskRate extends javax.swing.JFrame {
     }//GEN-LAST:event_correctTaskButtonActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Обновляет список заданий в интерфейсе.
      */
     private void updateTasksList() {
         DefaultListModel<Task> listModel = new DefaultListModel<>();
@@ -459,9 +509,19 @@ public class StudentTaskRate extends javax.swing.JFrame {
         taskList.setModel(listModel);
         taskList.addListSelectionListener(this::taskListValueChanged);
     }
+    /**
+     * Возвращает результат оценки студента.
+     *
+     * @return Результат с оценёнными заданиями.
+     */
     public StudentResult getReport() {
         return report;
     }
+    /**
+     * Включает или отключает кнопки для быстрой установки комментариев.
+     *
+     * @param enabled true, если кнопки должны быть активны; false иначе.
+     */
     private void setCommentButtonsEnabled(boolean enabled) {
         correctTaskButton.setEnabled(enabled);
         notCompletedTaskButton.setEnabled(enabled);

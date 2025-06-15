@@ -5,8 +5,9 @@
 package mephi.b22901.ekzamen;
 
 /**
- *
- * @author ivis2
+ *  Класс для представления студента.
+ * Содержит ФИО, вариант задания и результат выполнения.
+ * @author Иван Исаев
  */
 public class Student {
     int variant;

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ivis2
+ * Класс для представления группы студентов.
+ * Содержит название группы и список студентов.
+ * @author Иван Исаев
  */
 public class Group {
     String name;

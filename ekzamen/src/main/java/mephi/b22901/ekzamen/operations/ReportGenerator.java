@@ -18,17 +18,31 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.util.List;
+
 /**
- *
- * @author ivis2
+ * Класс для генерации отчетов по студентам, группам и потоку.
+ * Поддерживает форматы TXT и EXCEL.
+ * @author Иван Исаев
  */
 public class ReportGenerator {
-
+    
+    /**
+     * Перечисление форматов отчета.
+     */
     public enum Format {
         TXT,
         EXCEL
     }
-
+    /**
+     * Генерирует отчет по отдельному студенту в указанном формате.
+     *
+     * @param student Студент, для которого создается отчет.
+     * @param group Группа, к которой относится студент.
+     * @param file Файл, в который сохраняется отчет.
+     * @param format Формат отчета (TXT или EXCEL).
+     * @param passingGrade Минимальный балл для зачета.
+     * @throws IOException Если произошла ошибка записи файла.
+     */
     public static void generateStudentReport(Student student, Group group, File file, Format format, int passingGrade) throws IOException {
         if (format == Format.TXT) {
             writeStudentTxtReport(student, group, file, passingGrade);
@@ -36,7 +50,15 @@ public class ReportGenerator {
             writeStudentExcelReport(student, group, file, passingGrade);
         }
     }
-
+    /**
+     * Генерирует отчет по группе в указанном формате.
+     *
+     * @param group Группа студентов.
+     * @param file Файл, в который сохраняется отчет.
+     * @param format Формат отчета.
+     * @param passingGrade Минимальный балл для зачета.
+     * @throws IOException Если произошла ошибка записи файла.
+     */
     public static void generateGroupReport(Group group, File file, Format format, int passingGrade) throws IOException {
         if (format == Format.TXT) {
             writeGroupTxtReport(group, file, passingGrade);
@@ -44,7 +66,15 @@ public class ReportGenerator {
             writeGroupExcelReport(group, file, passingGrade);
         }
     }
-
+    /**
+     * Генерирует сводный отчет по всем группам в указанном формате.
+     *
+     * @param groups Список групп.
+     * @param file Файл, в который сохраняется отчет.
+     * @param format Формат отчета.
+     * @param passingGrade Минимальный балл для зачета.
+     * @throws IOException Если произошла ошибка записи файла.
+     */
     public static void generateAllGroupsReport(List<Group> groups, File file, Format format, int passingGrade) throws IOException {
         if (format == Format.TXT) {
             writeAllGroupsTxtReport(groups, file, passingGrade);

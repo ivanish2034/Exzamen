@@ -13,11 +13,22 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 /**
- *
- * @author ivis2
+ * Класс для импорта данных конкретной задачи из Excel.
+ * Формирует объект Task с данными таблицы.
+ * @author Иван Исаев
  */
 public class ImportTask {
+    /**
+     * Импортирует задачу из Excel по её номеру.
+     * Сначала выбирает лист по номеру, затем считывает все строки и ячейки.
+     * Результат сохраняется в объект Task.
+     *
+     * @param book Excel, содержащая листы с задачами.
+     * @param taskNumber Номер задачи (лист в книге).
+     * @return Объект Task с таблицей данных.
+     */
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     public static Task importTask(XSSFWorkbook book, int taskNumber) {
         XSSFSheet sheet = book.getSheetAt(taskNumber);

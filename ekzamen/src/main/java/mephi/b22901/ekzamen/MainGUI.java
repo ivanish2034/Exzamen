@@ -7,7 +7,6 @@ package mephi.b22901.ekzamen;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -21,7 +20,9 @@ import mephi.b22901.ekzamen.operations.ReportGenerator.Format;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
- *
+ * Графический интерфейс для импорта студентов и вариантов,
+ * оценки работ студентов и генерации отчетов.
+ * Использует Swing-компоненты для взаимодействия с пользователем.
  * @author ivis2
  */
 public class MainGUI extends javax.swing.JFrame {
@@ -32,7 +33,8 @@ public class MainGUI extends javax.swing.JFrame {
      
 
     /**
-     * Creates new form Interface
+     * Создает новый интерфейс приложения,
+     * инициализирует компоненты и настраивает окно.
      */
     public MainGUI() {
         initComponents();
@@ -243,7 +245,13 @@ public class MainGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Обрабатывает выбор Excel-файла со списками студентов
+     * и импортирует данные о группах и студентах.
+     *
+     * @param evt Событие выбора файла.
+     */
     private void importStidentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importStidentsButtonActionPerformed
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Students.xlsx", "xlsx");
         jFileChooser.setFileFilter(filter);
@@ -287,16 +295,15 @@ public class MainGUI extends javax.swing.JFrame {
 
         importVarintButton.setEnabled(true);
     }//GEN-LAST:event_importStidentsButtonActionPerformed
-
+    /**
+     * Обрабатывает выбор папки с файлами вариантов заданий.
+     *
+     * @param evt Событие выбора папки.
+     */
     private void importVarintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importVarintButtonActionPerformed
         try {
             try {
-                File jarDir = new File(MainGUI.class
-                    .getProtectionDomain()
-                    .getCodeSource()
-                    .getLocation()
-                    .toURI())
-                    .getParentFile();
+                File jarDir = new File(MainGUI.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
 
                 jFolderChooser.setCurrentDirectory(jarDir);
             } catch (Exception e) {
@@ -320,7 +327,11 @@ public class MainGUI extends javax.swing.JFrame {
         createPersonReportButton.setEnabled(true);
         createAllReportButton.setEnabled(true);
     }//GEN-LAST:event_importVarintButtonActionPerformed
-
+    /**
+     * Обновляет список студентов в интерфейсе при выборе группы.
+     *
+     * @param evt Событие выбора группы.
+     */
     private void chooserGroupComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooserGroupComboBoxActionPerformed
         DefaultListModel<Student> listModel = new DefaultListModel<>();
         
@@ -333,14 +344,22 @@ public class MainGUI extends javax.swing.JFrame {
         studentInfoList.setSelectedIndex(0);
         createGroupReportButton.setEnabled(true);
     }//GEN-LAST:event_chooserGroupComboBoxActionPerformed
-
+    /**
+     * Устанавливает для выбранного студента отметку об отсутствии работы.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void noWorkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noWorkButtonActionPerformed
         StudentResult noWorkReport = new StudentResult();
         noWorkReport.setHasNoWork(true);
         chosenGroup.getStudents().get(studentInfoList.getSelectedIndex()).setReport(noWorkReport);
         updateStudentsList();
     }//GEN-LAST:event_noWorkButtonActionPerformed
-
+    /**
+     * Открывает вариант выбранного студента для оценки.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void openVarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openVarButtonActionPerformed
         Student student = (Student) studentInfoList.getSelectedValue();
             if (student != null) {
@@ -358,7 +377,12 @@ public class MainGUI extends javax.swing.JFrame {
             } else JOptionPane.showMessageDialog(MainGUI.this, "Студент не выбран");
             updateStudentsList();
     }//GEN-LAST:event_openVarButtonActionPerformed
-
+    /**
+    * Генерирует отчет по выбранной группе студентов.
+    * Проверяет, что все студенты оценены, и сохраняет отчет.
+    *
+    * @param evt Событие нажатия кнопки.
+    */
     private void createGroupReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGroupReportButtonActionPerformed
          if (chosenGroup.getStudents().stream().anyMatch(student -> student.getReport() == null)) {
             JOptionPane.showMessageDialog(this, "Не все студенты оценены");
@@ -382,14 +406,23 @@ public class MainGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_createGroupReportButtonActionPerformed
-
+    /**
+     * Удаляет оценку у выбранного студента.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void deleteRateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRateButtonActionPerformed
         int chosenStudentIndex = studentInfoList.getSelectedIndex();
         Student chosenStudent = chosenGroup.getStudents().get(chosenStudentIndex);
         chosenStudent.setReport(null);
         updateStudentsList();
     }//GEN-LAST:event_deleteRateButtonActionPerformed
-
+    /**
+     * Обновляет состояние кнопок и списка студентов
+     * при изменении выбранного студента.
+     *
+     * @param evt Событие выбора элемента списка студентов.
+     */
     private void studentInfoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_studentInfoListValueChanged
         int chosenStudentIndex = studentInfoList.getSelectedIndex();
             try {
@@ -409,7 +442,11 @@ public class MainGUI extends javax.swing.JFrame {
                 System.out.println("Нет выбранного значения");
             }
     }//GEN-LAST:event_studentInfoListValueChanged
-
+    /**
+     * Генерирует персональный отчет по выбранному студенту.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void createPersonReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPersonReportButtonActionPerformed
          Student student = (Student) studentInfoList.getSelectedValue();
         if (student == null) {
@@ -439,7 +476,12 @@ public class MainGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_createPersonReportButtonActionPerformed
-
+    /**
+     * Генерирует сводный отчет по всем группам.
+     * Проверяет, что все студенты оценены, и сохраняет отчет.
+     *
+     * @param evt Событие нажатия кнопки.
+     */
     private void createAllReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAllReportButtonActionPerformed
         for (Group group : groups) {
             for (Student student : group.getStudents()) {
@@ -472,9 +514,8 @@ public class MainGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_createAllReportButtonActionPerformed
-
     /**
-     * @param args the command line arguments
+     * Обновляет список студентов текущей выбранной группы.
      */
     public void updateStudentsList() {
         DefaultListModel<Student> listModel = new DefaultListModel<>();
@@ -484,7 +525,11 @@ public class MainGUI extends javax.swing.JFrame {
         studentInfoList.setModel(listModel);
         studentInfoList.setSelectedIndex(0);
     }
-
+    /**
+     * Запрашивает у пользователя минимальный проходной балл.
+     *
+     * @return Введенный проходной балл или -1, если ввод некорректен.
+     */
     private int getPassingGradeFromUser() {
     try {
             int grade = Integer.parseInt(JOptionPane.showInputDialog(
@@ -499,7 +544,11 @@ public class MainGUI extends javax.swing.JFrame {
             return -1;
         }
     }
-
+    /**
+     * Отображает диалог выбора формата отчета.
+     *
+     * @return Выбранный формат отчета или {@code null}, если выбор отменен.
+     */
     private Format showFormatDialog() {
         Object[] options = {"Excel (.xlsx)", "Текстовый файл (.txt)"};
         int choice = JOptionPane.showOptionDialog(
@@ -511,7 +560,13 @@ public class MainGUI extends javax.swing.JFrame {
         if (choice == 1) return Format.TXT;
         return null;
     }
-
+    /**
+     * Отображает диалог для выбора папки сохранения отчета.
+     *
+     * @param baseName Базовое имя файла отчета.
+     * @param format Формат отчета.
+     * @return Файл для сохранения или {@code null}, если выбор отменен.
+     */
     private File chooseSaveLocation(String baseName, Format format) {
         jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (jFileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
@@ -520,12 +575,20 @@ public class MainGUI extends javax.swing.JFrame {
         String extension = format == Format.EXCEL ? ".xlsx" : ".txt";
         return new File(jFileChooser.getSelectedFile(), baseName + extension);
     }
-
+    /**
+     * Показывает сообщение об успешном сохранении отчета.
+     *
+     * @param file Файл сохраненного отчета.
+     */
     private void showSuccessMessage(File file) {
         JOptionPane.showMessageDialog(this, 
             "Отчет успешно сохранен:\n" + file.getAbsolutePath());
     }
-
+    /**
+     * Показывает сообщение об ошибке.
+     *
+     * @param message Текст ошибки.
+     */
     private void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Ошибка", JOptionPane.ERROR_MESSAGE);
     }

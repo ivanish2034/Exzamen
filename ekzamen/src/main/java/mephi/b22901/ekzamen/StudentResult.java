@@ -7,7 +7,8 @@ package mephi.b22901.ekzamen;
 import java.util.ArrayList;
 
 /**
- *
+ * Класс для представления результата выполнения заданий студентом.
+ * Содержит список заданий и признак отсутствия работы.
  * @author ivis2
  */
 public class StudentResult {

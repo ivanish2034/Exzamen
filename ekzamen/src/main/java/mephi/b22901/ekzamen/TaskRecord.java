@@ -5,8 +5,9 @@
 package mephi.b22901.ekzamen;
 
 /**
- *
- * @author ivis2
+ * Класс для представления отчёта по выполненному заданию.
+ * Содержит оценку и комментарий преподавателя.
+ * @author Иван Исаев
  */
 public class TaskRecord {
     int grade;

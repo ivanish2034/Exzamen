@@ -7,8 +7,10 @@ package mephi.b22901.ekzamen;
 import java.util.ArrayList;
 
 /**
- *
- * @author ivis2
+ * Класс для представления задания варианта.
+ * Содержит номер задания, условие, максимальную оценку,
+ * входные данные и отчёт по заданию.
+ * @author Иван Исаев
  */
 public class Task {
     int taskNumber;

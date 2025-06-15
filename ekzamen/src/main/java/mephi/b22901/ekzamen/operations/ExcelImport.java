@@ -3,11 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mephi.b22901.ekzamen.operations;
-
-/**
- *
- * @author ivis2
- */
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -22,8 +17,22 @@ import mephi.b22901.ekzamen.*;
 import static mephi.b22901.ekzamen.operations.ImportTask.importTask;
 import static mephi.b22901.ekzamen.operations.ImportCondition.getCondition;
 
+/**
+ * Класс для импорта студентов и вариантов из Excel-файлов.
+ * Использует Apache POI для чтения файлов Excel.
+ * @author Иван Исаев
+ */
 public class ExcelImport  {
-    
+    /**
+     * Импортирует студентов из Excel-файла.
+     * Для каждой страницы создается группа,
+     * а строки страницы преобразуются в студентов.
+     *
+     * @param file Excel-файл со списками студентов по группам.
+     * @return Список всех групп с их студентами.
+     * @throws IOException Если файл не найден или не может быть прочитан.
+     * @throws InvalidFormatException Если формат файла не поддерживается.
+     */
     public static ArrayList<Group> importStudents(File file) throws IOException,  InvalidFormatException{
         XSSFWorkbook book = new XSSFWorkbook(file);
         ArrayList<Group> groups = new ArrayList<>();
@@ -45,7 +54,15 @@ public class ExcelImport  {
         }
         return groups;
     }
-    
+    /**
+     * Импортирует вариант заданий из Excel-файла.
+     * Для каждого листа задачи формируется Task,
+     * для каждой задачи загружается условие и максимальный балл.
+     *
+     * @param fileName Путь к файлу Excel.
+     * @return Вариант с полным списком задач.
+     * @throws IOException Если файл не найден или не может быть прочитан.
+     */
     public static Variant importVariant(String fileName) throws IOException{
         XSSFWorkbook book = new XSSFWorkbook(fileName);
         Variant variant = new Variant();

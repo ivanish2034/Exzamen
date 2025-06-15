@@ -7,8 +7,9 @@ package mephi.b22901.ekzamen;
 import java.util.ArrayList;
 
 /**
- *
- * @author ivis2
+ * Класс для представления варианта заданий.
+ * Содержит список заданий данного варианта.
+ * @author Иван Исаев
  */
 public class Variant {
     ArrayList<Task> tasks;
